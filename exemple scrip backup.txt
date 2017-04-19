@@ -1,0 +1,18 @@
+#!/bin/bash
+# Developed by Consultingti.com - suporte@consulting.com
+DATA=`date +%d-%m-%Y`
+TIME=`date +%H-%M-%S`
+LOGBKP=/var/log/backup.log
+#email=
+#clearlog=echo "" > /var/log/backup.log
+echo "Backup do Dia -----> $DATA  $TIME" $LOGBKP
+echo "**************************************" >> $LOGBKP
+echo " INICIO DO BACKUP	"  >> $LOGBKP
+echo "***************************************" >> $LOGBKP
+tar -czvf /BACKUP/Backup"$DATA".tar.gz /data/ >> $LOGBKP
+echo "***************************************" >> $LOGBKP
+echo "FIM DO BACKUP DO DIA ---->" $DATA $TIME >> $LOGBKP
+echo "***************************************" >> $LOGBKP
+# Enviando e-mail 
+cat /var/log/backup.log | mail  -s "A/C LUCAS BACKUP REALIZADO COM SUCESSO" `hostname` - Data/Hora $(/bin/date +%d/%m/%Y) fernandomodestom@yahoo.com.br
+echo "" > /var/log/backup.log
